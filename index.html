@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sofia 💛</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background: radial-gradient(circle at top,#1a0026,#000000 70%);
+    font-family:'Poppins',sans-serif;
+    color:white;
+    text-align:center;
+}
+
+.neon{
+    font-family:'Orbitron',sans-serif;
+    font-size:70px;
+    color:#ff4da6;
+    text-shadow:
+        0 0 5px #ff4da6,
+        0 0 10px #ff4da6,
+        0 0 20px #ff1a75,
+        0 0 40px #ff1a75;
+    animation:pulse 2s infinite alternate;
+}
+
+@keyframes pulse{
+    from{ text-shadow:0 0 5px #ff4da6,0 0 10px #ff4da6; }
+    to{ text-shadow:0 0 20px #ff1a75,0 0 40px #ff1a75; }
+}
+
+button{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    background:#ff4da6;
+    color:white;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+#message{
+    max-width:600px;
+    margin-top:30px;
+}
+
+.line{
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 1.2s ease;
+    margin:15px 0;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.heart{
+    position:absolute;
+    color:#ff4da6;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(100vh); opacity:1;}
+    100%{transform:translateY(-10vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="neon">SOFIA 💖</div>
+
+<button id="startBtn" onclick="start()">Tap to Unlock My Heart ✨</button>
+
+<div id="message"></div>
+
+<button id="finalBtn" style="display:none;" onclick="final()">Will you always be mine? 💍</button>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8a7c2a5a5.mp3?filename=romantic-piano-110623.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const text=[
+"Bangaram 💛",
+"Mahal ko, my sunshine ☀️",
+"I don’t even know how to explain how much I miss you.",
+"Every day without you feels just a little incomplete.",
+"No matter how far we are, you’re always in my thoughts.",
+"You’re my comfort, my peace, my happiness.",
+"From Mafia42 to forever… who knew?",
+"I just wish I could hold you right now.",
+"I miss you more than distance can measure."
+];
+
+function start(){
+    document.getElementById("startBtn").style.display="none";
+    document.getElementById("music").play();
+    let i=0;
+    const container=document.getElementById("message");
+
+    function reveal(){
+        if(i<text.length){
+            let div=document.createElement("div");
+            div.className="line";
+            div.innerHTML=text[i];
+            container.appendChild(div);
+
+            setTimeout(()=>div.classList.add("show"),100);
+            i++;
+            setTimeout(reveal,1400);
+        } else{
+            document.getElementById("finalBtn").style.display="inline-block";
+        }
+    }
+    reveal();
+}
+
+function final(){
+    document.getElementById("finalBtn").innerHTML="Forever yours, mahal ko 💖";
+}
+
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,400);
+</script>
+
+</body>
+</html>
