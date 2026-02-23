@@ -40,7 +40,6 @@ body{
 }
 
 button{
-    margin-top:25px;
     padding:12px 30px;
     border:none;
     border-radius:30px;
@@ -52,7 +51,11 @@ button{
 }
 
 button:hover{
-    transform:scale(1.1);
+    transform:scale(1.08);
+}
+
+#startBtn{
+    margin-top:25px;
 }
 
 #message{
@@ -70,6 +73,11 @@ button:hover{
 .show{
     opacity:1;
     transform:translateY(0);
+}
+
+#finalBtn{
+    display:none;
+    position:absolute;
 }
 
 .heart{
@@ -93,20 +101,16 @@ button:hover{
 
 <div id="message"></div>
 
-<button id="finalBtn" style="display:none;" onclick="final()">Will you always be mine? 💍</button>
-
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8a7c2a5a5.mp3?filename=romantic-piano-110623.mp3" type="audio/mpeg">
-</audio>
+<button id="finalBtn">Will you always be mine? 💍</button>
 
 <script>
 const text=[
 "Bangaram 💛",
 "Mahal ko, my sunshine ☀️",
 "I don’t even know how to explain how much I miss you.",
-"Every day without you feels just a little incomplete.",
+"Every moment without you feels incomplete.",
 "No matter how far we are, you’re always in my thoughts.",
-"You’re my comfort, my peace, my happiness.",
+"You are my comfort, my peace, my happiness.",
 "From Mafia42 to forever… who knew?",
 "I just wish I could hold you right now.",
 "I miss you more than distance can measure."
@@ -114,7 +118,6 @@ const text=[
 
 function start(){
     document.getElementById("startBtn").style.display="none";
-    document.getElementById("music").play();
     let i=0;
     const container=document.getElementById("message");
 
@@ -127,16 +130,37 @@ function start(){
 
             setTimeout(()=>div.classList.add("show"),100);
             i++;
-            setTimeout(reveal,1400);
+            setTimeout(reveal,1300);
         } else{
-            document.getElementById("finalBtn").style.display="inline-block";
+            const btn=document.getElementById("finalBtn");
+            btn.style.display="inline-block";
+            btn.style.top="70%";
+            btn.style.left="50%";
+            btn.style.transform="translateX(-50%)";
         }
     }
     reveal();
 }
 
-function final(){
-    document.getElementById("finalBtn").innerHTML="Forever yours, mahal ko 💖";
+let moves=0;
+const btn=document.getElementById("finalBtn");
+
+btn.addEventListener("mouseover", moveButton);
+btn.addEventListener("click", moveButton);
+
+function moveButton(){
+    if(moves<3){
+        const x=Math.random()*(window.innerWidth-200);
+        const y=Math.random()*(window.innerHeight-100);
+        btn.style.left=x+"px";
+        btn.style.top=y+"px";
+        moves++;
+    } else{
+        btn.removeEventListener("mouseover", moveButton);
+        btn.removeEventListener("click", moveButton);
+        btn.style.position="static";
+        btn.innerHTML="Okay okay… I’m forever yours, bangaram 💖";
+    }
 }
 
 function createHeart(){
